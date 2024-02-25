@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """Starts a flask web application"""
 
-from flask import Flask
+from flask import Flask, make_response, jsonify
 from models import storage
 from api.v1.views import app_views
 import os
@@ -18,6 +18,12 @@ HBNB_API_PORT = os.getenv("HBNB_API_PORT", 5000)
 def teardown_appcontext(exception):
     """Closes storage"""
     storage.close()
+
+
+@app.errorhandler(404)
+def not_found(error):
+    """Handler for 404 errors"""
+    return make_response(jsonify({'error': 'Not found'}), 404)
 
 
 if __name__ == '__main__':
