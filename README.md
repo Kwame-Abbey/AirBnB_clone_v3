@@ -85,6 +85,13 @@ Classes inherited from Base Model:
 * `def create_city(state_id)`- Creates a City
 * `def update_city(city_id) - Updates a City object
 
+[amenities.py] (/api/v1/views/amenities.py) - a new view for Amenity objects that handles all default RESTFul API actions
+* `def get_amenities()` - Retrieves the list of all Amenity objects
+* `def get_amenity(amenity_id)` - Retrieves a Amenity object
+* `def delete_amenity(amenity_id)` - Deletes a Amenity object
+* `def create_amenity()` - Creates a Amenity
+* `def update_amenity(amenity_id)` - Updates a Amenity object
+
 #### `/tests` directory contains all unit test cases for this project:
 [/test_models/test_base_model.py](/tests/test_models/test_base_model.py) - Contains the TestBaseModel and TestBaseModelDocs classes
 TestBaseModelDocs class:
