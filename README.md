@@ -67,8 +67,16 @@ Classes inherited from Base Model:
 * `def not_found(error)` - Handles error 404
 
 #### `/api/v1/views` create an instance of Blueprint:
-[index.py] (/api/v1/views/index) - create a route /status on the object app_views
+[index.py] (/api/v1/views/index) - a route /status on the object app_views
 * `def status` - returns a JSON: "status": "OK"
+* `def get_stats()` - retrieves the number of each objects by type
+
+[states.py] (api/v1/views/states.py) - a new view for State objects that handles all default RESTFul API actions
+* `def get_states()` - Retrieves the list of all State objects
+* `def get_state(state_id)` - Retrieves a State object
+* `def delete_state(state_id)` - Deletes a State object
+* `def update_state(state_id)` - Updates a State object
+* `def create_state()` - Creates a State
 
 #### `/tests` directory contains all unit test cases for this project:
 [/test_models/test_base_model.py](/tests/test_models/test_base_model.py) - Contains the TestBaseModel and TestBaseModelDocs classes
