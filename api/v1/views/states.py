@@ -12,11 +12,8 @@ from flask import abort, jsonify, make_response, request
 @app_views.route('/states', methods=['GET'], strict_slashes=False)
 def get_states():
     """Retrieves list of all State objects"""
-    all_states = []
-    all_objects = storage.all(State).values()
-    for state in all_objects:
-        all_states.append(state.to_dict())
-    return jsonify(all_states)
+    all_list = [obj.to_dict() for obj in storage.all(State).values()]
+    return jsonify(all_list)
 
 
 @app_views.route('/states/<state_id>', methods=['GET'],
@@ -24,7 +21,7 @@ def get_states():
 def get_state(state_id):
     """Retrieves a State object"""
     state = storage.get(State, state_id)
-    if not state:
+    if state is None:
         abort(404)
 
     return jsonify(state.to_dict())
@@ -35,42 +32,37 @@ def get_state(state_id):
 def delete_state(state_id):
     """Deletes a State object"""
     state = storage.get(State, state_id)
-    if not state:
+    if state is None:
         abort(404)
-    storage.delete(state)
+    state.delete()
     storage.save()
-    return make_response(jsonify({}), 200)
+    return jsonify({})
 
 
 @app_views.route('/states', methods=['POST'], strict_slashes=False)
 def create_state():
     """Creates a State"""
     if not request.get_json():
-        abort(400, description="Not a JSON")
+        return make_response(jsonify({"error": "Not a JSON"}), 400)
     if 'name' not in request.get_json():
-        abort(400, description="Missing name")
-    data = request.get_json()
-    new_instance = State(**data)
-    new_instance.save()
-
-    return make_response(jsonify(new_instance.to_dict()), 201)
+        return make_response(jsonify({"error": "Missing name"}), 400)
+    js = request.get_json()
+    obj = State(**js)
+    obj.save()
+    return jsonify(obj.to_dict()), 201
 
 
 @app_views.route('/states/<state_id>', methods=['PUT'],
                  strict_slashes=False)
 def update_state(state_id):
     """Updates a State object"""
-    state = storage.get(State, state_id)
-    if not state:
-        abort(404)
     if not request.get_json():
-        abort(400, description="Not a JSON")
-    data = request.get_json()
-
-    keys_to_ignore = ['id', 'created_at', 'updated_at']
-    for k, v in data.items():
-        if k not in keys_to_ignore:
-            setattr(state, k, v)
+        return make_response(jsonify({"error": "Not a JSON"}), 400)
+    obj = storage.get(State, state_id)
+    if obj is None:
+        abort(404)
+    for key, value in request.get_json().items():
+        if key not in ['id', 'created_at', 'updated']:
+            setattr(obj, key, value)
     storage.save()
-
-    return make_response(jsonify(state.to_dict()), 200)
+    return jsonify(obj.to_dict())
