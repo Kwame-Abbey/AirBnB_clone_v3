@@ -71,12 +71,19 @@ Classes inherited from Base Model:
 * `def status` - returns a JSON: "status": "OK"
 * `def get_stats()` - retrieves the number of each objects by type
 
-[states.py] (api/v1/views/states.py) - a new view for State objects that handles all default RESTFul API actions
+[states.py] (/api/v1/views/states.py) - a new view for State objects that handles all default RESTFul API actions
 * `def get_states()` - Retrieves the list of all State objects
 * `def get_state(state_id)` - Retrieves a State object
 * `def delete_state(state_id)` - Deletes a State object
 * `def update_state(state_id)` - Updates a State object
 * `def create_state()` - Creates a State
+
+[cities.py] (/api/v1/views/cities.py) - a new view for City objects that handles all default RESTFul API actions
+* `def get_cities(state_id)` - Retrieves the list of all City objects of a State
+* `def get_city(city_id)` - Retrieves a City object.
+* `def delete_city(city_id)` - Deletes a City object
+* `def create_city(state_id)`- Creates a City
+* `def update_city(city_id) - Updates a City object
 
 #### `/tests` directory contains all unit test cases for this project:
 [/test_models/test_base_model.py](/tests/test_models/test_base_model.py) - Contains the TestBaseModel and TestBaseModelDocs classes
