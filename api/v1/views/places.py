@@ -1,6 +1,6 @@
 #!/usr/bin/python3
-"""
-This file contains the Place module
+"""Create a new view for Place objects that handles all
+default RESTFul API actions
 """
 from api.v1.views import app_views
 from flask import jsonify, abort, request, make_response
@@ -14,8 +14,8 @@ from models.state import State
 
 @app_views.route('/cities/<string:city_id>/places',
                  methods=['GET'], strict_slashes=False)
-def get_all_places(city_id):
-    """ list cities by id """
+def get_places(city_id):
+    """Retrieves the list of all Place objects of a City"""
     city = storage.get(City, city_id)
     if city is None:
         abort(404)
@@ -26,7 +26,7 @@ def get_all_places(city_id):
 @app_views.route('/places/<string:place_id>', methods=['GET'],
                  strict_slashes=False)
 def get_place(place_id):
-    """ get place by id """
+    """Retrieves a Place object"""
     place = storage.get(Place, place_id)
     if place is None:
         abort(404)
@@ -35,8 +35,8 @@ def get_place(place_id):
 
 @app_views.route('/places/<string:place_id>', methods=['DELETE'],
                  strict_slashes=False)
-def del_place(place_id):
-    """ delete place by id """
+def delete_place(place_id):
+    """Deletes a Place object"""
     place = storage.get(Place, place_id)
     if place is None:
         abort(404)
@@ -47,8 +47,8 @@ def del_place(place_id):
 
 @app_views.route('/cities/<string:city_id>/places', methods=['POST'],
                  strict_slashes=False)
-def create_obj_place(city_id):
-    """ create new instance """
+def create_place(city_id):
+    """Creates a Place Object"""
     city = storage.get(City, city_id)
     if city is None:
         abort(404)
@@ -70,8 +70,8 @@ def create_obj_place(city_id):
 
 @app_views.route('/places/<string:place_id>', methods=['PUT'],
                  strict_slashes=False)
-def post_place(place_id):
-    """ update by id """
+def update_place(place_id):
+    """Updates a Place Object"""
     if not request.get_json():
         return make_response(jsonify({"error": "Not a JSON"}), 400)
     obj = storage.get(Place, place_id)
@@ -87,7 +87,7 @@ def post_place(place_id):
 @app_views.route('/places_search', methods=['POST'],
                  strict_slashes=False)
 def search_places_by_id():
-    """ search places by id """
+    """Search a Place object by id"""
     if request.get_json() is None:
         return make_response(jsonify({"error": "Not a JSON"}), 400)
 

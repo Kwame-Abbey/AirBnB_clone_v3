@@ -1,6 +1,6 @@
 #!/usr/bin/python3
-"""
-This file contains the Review module
+"""Create a new view for Review object that handles all
+default RESTFul API actions
 """
 from api.v1.views import app_views
 from flask import jsonify, abort, request, make_response
@@ -12,8 +12,8 @@ from models.user import User
 
 @app_views.route('/places/<string:place_id>/reviews',
                  methods=['GET'], strict_slashes=False)
-def get_all_reviews(place_id):
-    """ get reviews from a spcific place """
+def get_reviews(place_id):
+    """Retrieves the list of all Review objects of a Place"""
     place = storage.get(Place, place_id)
     if place is None:
         abort(404)
@@ -24,7 +24,7 @@ def get_all_reviews(place_id):
 @app_views.route('/reviews/<string:review_id>', methods=['GET'],
                  strict_slashes=False)
 def get_review(review_id):
-    """ get review by id"""
+    """Retrieves a review object"""
     review = storage.get(Review, review_id)
     if review is None:
         abort(404)
@@ -33,8 +33,8 @@ def get_review(review_id):
 
 @app_views.route('/reviews/<string:review_id>', methods=['DELETE'],
                  strict_slashes=False)
-def del_review(review_id):
-    """ delete review by id"""
+def delete_review(review_id):
+    """deletes a Review object"""
     review = storage.get(Review, review_id)
     if review is None:
         abort(404)
@@ -45,8 +45,8 @@ def del_review(review_id):
 
 @app_views.route('/places/<string:place_id>/reviews', methods=['POST'],
                  strict_slashes=False)
-def create_obj_review(place_id):
-    """ create new instance """
+def create_review(place_id):
+    """Create a review object"""
     place = storage.get(Place, place_id)
     if place is None:
         abort(404)
@@ -68,8 +68,8 @@ def create_obj_review(place_id):
 
 @app_views.route('/reviews/<string:review_id>', methods=['PUT'],
                  strict_slashes=False)
-def post_review(review_id):
-    """ updates by id """
+def update_review(review_id):
+    """Updates a Review object"""
     if not request.get_json():
         return make_response(jsonify({"error": "Not a JSON"}), 400)
     obj = storage.get(Review, review_id)
