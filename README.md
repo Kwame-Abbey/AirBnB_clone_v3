@@ -67,30 +67,37 @@ Classes inherited from Base Model:
 * `def not_found(error)` - Handles error 404
 
 #### `/api/v1/views` create an instance of Blueprint:
-[index.py] (/api/v1/views/index) - a route /status on the object app_views
+[index.py] (/api/v1/views/index) - a route /status on the object app_views:
 * `def status` - returns a JSON: "status": "OK"
 * `def get_stats()` - retrieves the number of each objects by type
 
-[states.py] (/api/v1/views/states.py) - a new view for State objects that handles all default RESTFul API actions
+[states.py] (/api/v1/views/states.py) - a new view for State objects that handles all default RESTFul API actions:
 * `def get_states()` - Retrieves the list of all State objects
 * `def get_state(state_id)` - Retrieves a State object
 * `def delete_state(state_id)` - Deletes a State object
 * `def update_state(state_id)` - Updates a State object
 * `def create_state()` - Creates a State
 
-[cities.py] (/api/v1/views/cities.py) - a new view for City objects that handles all default RESTFul API actions
+[cities.py] (/api/v1/views/cities.py) - a new view for City objects that handles all default RESTFul API actions:
 * `def get_cities(state_id)` - Retrieves the list of all City objects of a State
 * `def get_city(city_id)` - Retrieves a City object.
 * `def delete_city(city_id)` - Deletes a City object
 * `def create_city(state_id)`- Creates a City
 * `def update_city(city_id) - Updates a City object
 
-[amenities.py] (/api/v1/views/amenities.py) - a new view for Amenity objects that handles all default RESTFul API actions
+[amenities.py] (/api/v1/views/amenities.py) - a new view for Amenity objects that handles all default RESTFul API actions:
 * `def get_amenities()` - Retrieves the list of all Amenity objects
 * `def get_amenity(amenity_id)` - Retrieves a Amenity object
 * `def delete_amenity(amenity_id)` - Deletes a Amenity object
 * `def create_amenity()` - Creates a Amenity
 * `def update_amenity(amenity_id)` - Updates a Amenity object
+
+[users.py] (/api/v1/views/users.py) - a new view for User object that handles all default RESTFul API actions:
+* `def get_all_users()` - Retrieves the list of all User objects 
+* `def get_user(user_id)` - Retrieves a User object
+* `def delete_user(user_id)` - Deletes a User object
+* `def create_user()` - Creates a User
+* `def update_user(user_id)` - Updates a User object
 
 #### `/tests` directory contains all unit test cases for this project:
 [/test_models/test_base_model.py](/tests/test_models/test_base_model.py) - Contains the TestBaseModel and TestBaseModelDocs classes
