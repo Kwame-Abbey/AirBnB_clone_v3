@@ -99,6 +99,13 @@ Classes inherited from Base Model:
 * `def create_user()` - Creates a User
 * `def update_user(user_id)` - Updates a User object
 
+[places.py] (/api/v1/views/places.py) - a new view for Place objects that handles all default RESTFul API actions
+* `def get_places(city_id)` - Retrieves the list of all Place objects of a City
+* `def get_place(place_id)` - Retrieves a Place object
+* `def delete_place(place_id)` - Deletes a Place object
+* `def create_place(city_id)` - Creates a Place
+* `def update_place(place_id)` - Updates a Place object
+
 #### `/tests` directory contains all unit test cases for this project:
 [/test_models/test_base_model.py](/tests/test_models/test_base_model.py) - Contains the TestBaseModel and TestBaseModelDocs classes
 TestBaseModelDocs class:
